@@ -34,23 +34,36 @@ export class DynamoDBHandler {
     return sorted;
   }
 
- 
   /**
-   * 
-   * @param requestBody 
-   * @param scanResult 
-   * @returns 
+   *
+   * @param requestBody
+   * @param scanResult
+   * @returns
    */
-  public static generatePutRequest (requestBody, scanResult) {
+  public static generatePutRequest(requestBody, scanResult) {
     const uuid = uuidv4();
 
-    const dateSection = requestBody.data?.options[0].options.find(v => v.name === "date")
-    const linkSection = requestBody.data?.options[0].options.find(v => v.name === "link")
-    const contentSection = requestBody.data?.options[0].options.find(v => v.name === "content")
+    const dateSection = requestBody.data?.options[0].options.find(
+      (v) => v.name === "date"
+    );
+    const linkSection = requestBody.data?.options[0].options.find(
+      (v) => v.name === "link"
+    );
+    const contentSection = requestBody.data?.options[0].options.find(
+      (v) => v.name === "content"
+    );
 
-    const yyyy = dateSection.value.slice(0,4)
-    const mm = dateSection.value.slice(4,6).replace("0", " ")
-    const dd = dateSection.value.slice(6,8).replace("0", " ")
+    const yyyy = dateSection.value.slice(0, 4);
+
+    let mm = dateSection.value.slice(4, 6);
+    if (mm[0] === "0") {
+      mm = dateSection.value.slice(4, 6).replace("0", " ");
+    }
+
+    let dd = dateSection.value.slice(6, 8);
+    if (dd[0] === "0") {
+      dd = dateSection.value.slice(6, 8).replace("0", " ");
+    }
 
     const request = {
       TableName: DynamoDbTable.NEWS_TABLE,
@@ -63,7 +76,7 @@ export class DynamoDBHandler {
       },
     };
     console.log("putRequest", request);
-    return request
+    return request;
   }
 
   public static async put(request: PutItemCommandInput) {
