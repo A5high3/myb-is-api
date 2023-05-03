@@ -30,7 +30,6 @@ export class DynamoDBHandler {
     console.log("newsdata", news);
 
     const sorted = news.sort((v, i) => i.sort_index - v.sort_index);
-    sorted.forEach((v) => delete v.sort_index);
 
     return sorted;
   }

@@ -11,7 +11,20 @@ export const format401Response = (response: Record<string, unknown>) => {
   }
 }
 
-export const formatJSONResponse = (response: Record<string, unknown>) => {
+export const formatJSONResponse = (response: Record<string, unknown>, origin) => {
+  const res = {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": origin,
+    },
+    body: JSON.stringify(response)
+  }
+  console.log("res", res)
+  return res
+}
+
+
+export const formatDiscordResponse = (response: Record<string, unknown>) => {
   const res = {
     statusCode: 200,
     body: JSON.stringify(response)

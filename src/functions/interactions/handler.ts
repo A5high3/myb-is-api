@@ -1,4 +1,4 @@
-import { formatJSONResponse, format401Response } from "@libs/api-gateway";
+import { formatDiscordResponse,format401Response } from "@libs/api-gateway";
 import { middyfy } from "@libs/lambda";
 
 import { InteractionType, InteractionResponseType } from "discord-interactions";
@@ -21,7 +21,7 @@ const interactions = async (event) => {
   const requestBody = event.body;
   // Discord interaction検証用
   if (requestBody && requestBody.type === InteractionType.PING) {
-    return formatJSONResponse({
+    return formatDiscordResponse({
       type: InteractionResponseType.PONG,
       data: {
         content: `You used: ${requestBody.data}`,
@@ -40,7 +40,7 @@ const interactions = async (event) => {
         str += `id: ${v.news_id}\n日付: ${v.date}\nメッセージ: ${v.content}\nリンク: ${v.link}\n\n`;
       });
 
-      return formatJSONResponse({
+      return formatDiscordResponse({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
           content: str,
@@ -59,7 +59,7 @@ const interactions = async (event) => {
       );
       await DynamoDBHandler.put(request);
 
-      return formatJSONResponse({
+      return formatDiscordResponse({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
           content: `ニュースの登録が完了しました`,
@@ -68,7 +68,7 @@ const interactions = async (event) => {
     }
   }
 
-  return formatJSONResponse({
+  return formatDiscordResponse({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
       content: `hello world.\n foobar.`,

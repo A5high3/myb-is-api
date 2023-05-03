@@ -2,6 +2,7 @@ import type { AWS } from "@serverless/typescript";
 
 import hello from "@functions/hello";
 import interactions from "@functions/interactions";
+import archive from "@functions/achievement"
 
 const serverlessConfiguration: AWS = {
   service: "myb-is-api",
@@ -29,7 +30,7 @@ const serverlessConfiguration: AWS = {
     region: "ap-northeast-1",
   },
   // import the function via paths
-  functions: { hello, interactions },
+  functions: { hello, interactions, archive },
   resources: {
     Resources: {
       newsTable: {
