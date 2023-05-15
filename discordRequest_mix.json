@@ -1,0 +1,89 @@
+{
+  "name": "mix",
+  "type": 1,
+  "description": "MIX実績に関連するコマンドを実行します",
+  "options": [
+    {
+      "name": "regist",
+      "description": "新しくMIX実績を１件登録します",
+      "type": 1,
+      "required": false,
+      "options": [
+        {
+          "name": "date",
+          "description": "MIX実績に紐づく日時をyyyymmdd形式で入力してください",
+          "type": 3,
+          "required": true,
+          "min_length": 8,
+          "max_length": 8
+        },
+        {
+          "name": "content",
+          "description": "MIX実績の説明文を入力してください",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "link",
+          "description": "MIX実績のリンク先のURLを入力してください",
+          "type": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "description": "現在登録されているMIX実績の一覧を取得します",
+      "type": 1,
+      "required": false
+    },
+    {
+      "name": "update",
+      "description": "MIX実績を１件更新します",
+      "type": 1,
+      "required": false,
+      "options": [
+        {
+          "name": "mixid",
+          "description": "更新するMIX実績のIDを入力してください",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "date",
+          "description": "MIX実績に紐づく日時をyyyymmdd形式で入力してください",
+          "type": 3,
+          "required": true,
+          "min_length": 8,
+          "max_length": 8
+        },
+        {
+          "name": "content",
+          "description": "MIX実績の説明文を入力してください",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "link",
+          "description": "MIX実績のリンク先のURLを入力してください",
+          "type": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+        "name": "delete",
+        "description": "MIX実績を１件削除します",
+        "type": 1,
+        "required": false,
+        "options": [
+          {
+            "name": "mixid",
+            "description": "削除するMIX実績のIDを入力してください",
+            "type": 3,
+            "required": true
+          }
+        ]
+      }
+  ]
+}

@@ -1,24 +1,42 @@
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
 
-import { DynamoDBHandler } from "@libs/dynamodb"
+import { DynamoDBHandler } from "@libs/dynamodb";
+import Domain from "../interactions/domain"
 
 const archive = async (event) => {
-  console.log("event", event)
+  console.log("event", event);
 
-  const request = DynamoDBHandler.generateScanRequestOfNewsTable();
-  const result  = await DynamoDBHandler.scan(request)
+  let origin = event.headers.origin;
+
+  if (!origin) {
+    origin = event.headers["Origin"];
+  }
+
+  const newsRequest = Domain.News.generateScanRequest();
+  const mixRequest = Domain.Mix.generateScanRequest();
+
   
-  console.log("scanResult: ", result)
+  const newsResult = await DynamoDBHandler.scan(newsRequest);
+  const mixResult = await DynamoDBHandler.scan(mixRequest);
 
-  result.forEach( v => {
-    delete v.news_id
-    delete v.sort_index
+  console.log("scanResult: ", newsResult);
+
+  newsResult.forEach((v) => {
+    delete v.news_id;
+    delete v.sort_index;
+  });
+  mixResult.forEach((v) => {
+    delete v.mix_id;
+    delete v.sort_index;
   })
 
-  return formatJSONResponse({
-    content: result,
-  }, event.headers.origin);
+  return formatJSONResponse(
+    {
+      content: {news: newsResult, mix: mixResult},
+    },
+    origin
+  );
 };
 
 export const main = middyfy(archive);

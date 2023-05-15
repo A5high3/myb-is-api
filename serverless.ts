@@ -55,6 +55,28 @@ const serverlessConfiguration: AWS = {
           },
         },
       },
+      mixTable: {
+        Type: "AWS::DynamoDB::Table",
+        Properties: {
+          TableName: "myb-is-mix",
+          AttributeDefinitions: [
+            {
+              AttributeName: "mix_id",
+              AttributeType: "S",
+            },
+          ],
+          KeySchema: [
+            {
+              KeyType: "HASH",
+              AttributeName: "mix_id",
+            },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 2,
+            WriteCapacityUnits: 2,
+          },
+        },
+      },
     },
   },
   package: { individually: true },

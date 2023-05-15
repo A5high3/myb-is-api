@@ -25,4 +25,46 @@ export class DiscordHandler {
       requestBody.data.options.some((v) => v.name === "regist")
     );
   }
+
+  public static isNewsUpdate(requestBody): boolean {
+    return (
+      requestBody.data.name === "news" &&
+      requestBody.data.options.some((v) => v.name === "update")
+    );
+  }
+
+  public static isNewsDelete(requestBody): boolean {
+    return (
+      requestBody.data.name === "news" &&
+      requestBody.data.options.some((v) => v.name === "delete")
+    );
+  }
+
+  public static isMixList(requestBody): boolean {
+    return (
+      requestBody.data.name === "mix" &&
+      requestBody.data.options.some((v) => v.name === "list")
+    );
+  }
+
+  public static isMixRegist(requestBody): boolean {
+    return (
+      requestBody.data.name === "mix" &&
+      requestBody.data.options.some((v) => v.name === "regist")
+    );
+  }
+
+  public static isMixUpdate(requestBody): boolean {
+    return (
+      requestBody.data.name === "mix" &&
+      requestBody.data.options.some((v) => v.name === "update")
+    );
+  }
+
+  public static isMixDelete(requestBody): boolean {
+    return (
+      requestBody.data.name === "mix" &&
+      requestBody.data.options.some((v) => v.name === "delete")
+    );
+  }
 }

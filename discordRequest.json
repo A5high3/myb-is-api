@@ -1,0 +1,89 @@
+{
+  "name": "news",
+  "type": 1,
+  "description": "ニュースに関連するコマンドを実行します",
+  "options": [
+    {
+      "name": "regist",
+      "description": "新しくニュースを１件登録します",
+      "type": 1,
+      "required": false,
+      "options": [
+        {
+          "name": "date",
+          "description": "ニュースに紐づく日時をyyyymmdd形式で入力してください",
+          "type": 3,
+          "required": true,
+          "min_length": 8,
+          "max_length": 8
+        },
+        {
+          "name": "content",
+          "description": "ニュースの説明文を入力してください",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "link",
+          "description": "ニュースのリンク先のURLを入力してください",
+          "type": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "description": "現在登録されているニュースの一覧を取得します",
+      "type": 1,
+      "required": false
+    },
+    {
+      "name": "update",
+      "description": "ニュースを１件更新します",
+      "type": 1,
+      "required": false,
+      "options": [
+        {
+          "name": "newsid",
+          "description": "更新するニュースのIDを入力してください",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "date",
+          "description": "ニュースに紐づく日時をyyyymmdd形式で入力してください",
+          "type": 3,
+          "required": true,
+          "min_length": 8,
+          "max_length": 8
+        },
+        {
+          "name": "content",
+          "description": "ニュースの説明文を入力してください",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "link",
+          "description": "ニュースのリンク先のURLを入力してください",
+          "type": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+        "name": "delete",
+        "description": "ニュースを１件削除します",
+        "type": 1,
+        "required": false,
+        "options": [
+          {
+            "name": "newsid",
+            "description": "削除するニュースのIDを入力してください",
+            "type": 3,
+            "required": true
+          }
+        ]
+      }
+  ]
+}
