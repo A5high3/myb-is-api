@@ -18,7 +18,10 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
+      MYB_IS_GOD_APP_ID: "1092820873817362432",
       DISCORD_PUBLIC_KEY: "5d576ee0534a01e310b6882d98339384296e19b0ce0010989200e4c3bd7cd265",
+      OHAMYABI_APP_ID: "1152233520169754625",
+      OHAMYABI_PUB_KEY: "50e3b2a377271e8f8c2b3efb5d2e759947b760aa7cc1cea763a066e8cc6302ec",
     },
     iamRoleStatements: [
       {
@@ -74,6 +77,28 @@ const serverlessConfiguration: AWS = {
           ProvisionedThroughput: {
             ReadCapacityUnits: 2,
             WriteCapacityUnits: 2,
+          },
+        },
+      },
+      ohamyabiTable: {
+        Type: "AWS::DynamoDB::Table",
+        Properties: {
+          TableName: "ohamyabi",
+          AttributeDefinitions: [
+            {
+              AttributeName: "id",
+              AttributeType: "S",
+            },
+          ],
+          KeySchema: [
+            {
+              KeyType: "HASH",
+              AttributeName: "id",
+            },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1,
           },
         },
       },

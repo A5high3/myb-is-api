@@ -5,7 +5,10 @@ export class DiscordHandler {
     const { headers } = event;
     const signature = headers["x-signature-ed25519"];
     const timestamp = headers["x-signature-timestamp"];
-    const publicKey = process.env["DISCORD_PUBLIC_KEY"];
+    const publicKey =
+      event.body.application_id === process.env["MYB_IS_GOD_APP_ID"]
+        ? process.env["DISCORD_PUBLIC_KEY"]
+        : process.env["OHAMYABI_PUB_KEY"];
 
     const result = verifyKey(event.rawBody, signature, timestamp, publicKey);
     console.log("verifyResult", result);
@@ -66,5 +69,9 @@ export class DiscordHandler {
       requestBody.data.name === "mix" &&
       requestBody.data.options.some((v) => v.name === "delete")
     );
+  }
+
+  public static isOhamyabi(requestBody): boolean {
+    return requestBody.data.name === "ohamyabi";
   }
 }

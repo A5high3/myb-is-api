@@ -14,7 +14,8 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 
 export enum DynamoDbTable {
   NEWS_TABLE = "myb-is-news",
-  MIX_TABLE = "myb-is-mix"
+  MIX_TABLE = "myb-is-mix",
+  OHAMYABI_TABLE = "ohamyabi"
 }
 
 export class DynamoDBHandler {

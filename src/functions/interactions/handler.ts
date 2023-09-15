@@ -142,6 +142,20 @@ const interactions = async (event) => {
         },
       });
     }
+
+    if (DiscordHandler.isOhamyabi(requestBody)) {
+      const scanRequest = Domain.Ohamyabi.generateScanRequest();
+      const scanResult = await DynamoDBHandler.scan(scanRequest);
+      const randomId = Math.floor(Math.random() * (15 - 1) + 1);
+      const pickUpItem = scanResult.find(v => v.id == `${randomId}`)
+
+      return formatDiscordResponse({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: pickUpItem.content,
+        },
+      });
+    }
   }
 
   return formatDiscordResponse({
