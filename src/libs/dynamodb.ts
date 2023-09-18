@@ -1,5 +1,6 @@
 import {
   DynamoDBClient,
+  GetItemCommand,
   ScanCommandInput,
   ScanCommand,
   PutItemCommand,
@@ -8,6 +9,7 @@ import {
   UpdateItemCommand,
   DeleteItemCommandInput,
   DeleteItemCommand,
+  GetItemCommandInput,
 } from "@aws-sdk/client-dynamodb";
 
 import { unmarshall } from "@aws-sdk/util-dynamodb";
@@ -22,6 +24,14 @@ export class DynamoDBHandler {
   constructor() {}
 
   public static  db = new DynamoDBClient({ region: "ap-northeast-1" });
+
+  public static async get(request: GetItemCommandInput) {
+    console.log("getRequest", request)
+    const result = await DynamoDBHandler.db.send(new GetItemCommand(request))
+    console.log("getResult", result)
+    const unmarshalled = unmarshall(result.Item)
+    return unmarshalled
+  }
 
   public static async scan(request: ScanCommandInput) {
     const result = await DynamoDBHandler.db.send(new ScanCommand(request));

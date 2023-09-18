@@ -143,16 +143,31 @@ const interactions = async (event) => {
       });
     }
 
-    if (DiscordHandler.isOhamyabi(requestBody)) {
-      const scanRequest = Domain.Ohamyabi.generateScanRequest();
+    if (DiscordHandler.isRememberPhrase(requestBody)) {
+      const scanRequest = Domain.Ohamyabi.generateScanRequest()
       const scanResult = await DynamoDBHandler.scan(scanRequest);
-      const randomId = Math.floor(Math.random() * (15 - 1) + 1);
-      const pickUpItem = scanResult.find(v => v.id == `${randomId}`)
+      const putRequest = Domain.Ohamyabi.generatePutRequest(requestBody, scanResult);
+      await DynamoDBHandler.put(putRequest);
+      
 
       return formatDiscordResponse({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: pickUpItem.content,
+          content: `みゃっみゃっ！！${putRequest.Item.content.S}を覚えました！`
+        },
+      });
+    }
+
+    if (DiscordHandler.isOhamyabi(requestBody)) {
+      const MAX_CONTENTS_LENGTH = 17
+      const randomId = Math.floor(Math.random() * (MAX_CONTENTS_LENGTH - 1) + 1);
+      const getRequest = Domain.Ohamyabi.generateGetItemRequest(`${randomId}`);
+      const getResult = await DynamoDBHandler.get(getRequest);
+
+      return formatDiscordResponse({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: getResult.content
         },
       });
     }

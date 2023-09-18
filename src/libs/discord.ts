@@ -74,4 +74,11 @@ export class DiscordHandler {
   public static isOhamyabi(requestBody): boolean {
     return requestBody.data.name === "ohamyabi";
   }
+
+  public static isRememberPhrase(requestBody): boolean {
+    return (
+      requestBody.data.name === "remember" &&
+      requestBody.data.options.some((v) => v.name === "phraze")
+    );
+  }
 }
